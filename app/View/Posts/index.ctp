@@ -29,3 +29,7 @@
 </table>
 
 <p><?php echo $this->Html->link('Add Post', array('action' => 'add')); ?></p>
+
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Add Post</button>
+
+<?php echo $this->element('modal'); ?>
