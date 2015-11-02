@@ -25,9 +25,19 @@ class PostsController extends AppController {
             $this->Post->create();
             if ($this->Post->save($this->request->data)) {
                 $this->Flash->success(__('Your post has been saved.'));
-                return $this->redirect(array('action' => 'index'));
+                if ($this->request->is('ajax')){
+                	$post_id = $this->Post->getLastInsertId();
+					$created_post = $this->Post->findById($post_id);
+					$this->set('created_post', $created_post);
+					$this->set('_serialize', 'created_post');
+                }
+                else{
+                	return $this->redirect(array('action' => 'index'));
+                }
             }
-            $this->Flash->error(__('Unable to add your post.'));
+            else {
+            	$this->Flash->error(__('Unable to add your post.'));
+        	}
         }
     }
 
